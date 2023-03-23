@@ -1,7 +1,6 @@
 import numpy as np
 import math
 
-# Decomposição de Cholesky
 m_op = np.matrix('0 0 0; 0 0 0; 0 0 0')
 m_dada = np.matrix('4 12 -16; 12 37 -43; -16 -43 98')
 
@@ -17,5 +16,10 @@ for i in range(len(m_op) -1):
 if  len(m_op) != 2:
     j = 2
     for j in range(len(m_op -2)):
-        print(j)
+        if j != 0:
+            m_op[j, j] = m_dada[j, j] - 
+            print(j)
+        
+
+print(m_op)
 
