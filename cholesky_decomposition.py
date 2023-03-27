@@ -1,20 +1,20 @@
 import numpy as np
 import math
 
+# Samples of positve and definite matrix
 m_dada = np.matrix('4 12 -16; 12 37 -43; -16 -43 98')
-m_test = np.matrix('4 10 -16; 5 30 -43; -16 -41 95')
-
+m_test = np.matrix('6 15 55; 15 55 225; 55 225 979')
 
 def cholesky_decomposition(matrix_to_decompose):
     len_matrix = len(matrix_to_decompose)
     m_op = np.zeros((len_matrix, len_matrix))    
-    len_matrix_to_for = len(matrix_to_decompose) - 1
+    len_matrix_to_loop = len(matrix_to_decompose) - 1
     
     # U11 = Raíz de A11
     m_op[0, 0] = math.sqrt(matrix_to_decompose[0, 0])
 
     # Para i > 0 até n, m_op[1, j] = m_dada[1, j]/m_op[1, 1]
-    for i in range(len_matrix_to_for):
+    for i in range(len_matrix_to_loop):
         m_op[0, i + 1] = matrix_to_decompose[0, i + 1]/ m_op[0, 0]
 
     # Se 𝑛≠2.
@@ -22,7 +22,7 @@ def cholesky_decomposition(matrix_to_decompose):
     # Calculando linhas do meio
     if  len(m_op) != 2:
         for j in range(len(m_op)):
-            if (j > 0) and (j < len_matrix_to_for):
+            if (j > 0) and (j < len_matrix_to_loop):
 
                 ## Calculando somatório para determinante
                 summatory_todet = 0
@@ -43,14 +43,12 @@ def cholesky_decomposition(matrix_to_decompose):
     # Calculando último canto da matriz[n, n]
     ## Calculando somatório para n, n
     summatory_tonn = 0
-    for i in range(len_matrix_to_for):
+    for i in range(len_matrix_to_loop):
         summatory_tonn = summatory_tonn + math.pow(m_op[i, len(m_op) - 1], 2)
         
-    m_op[len_matrix_to_for, len_matrix_to_for] = math.sqrt(matrix_to_decompose[len_matrix_to_for, len_matrix_to_for] - summatory_tonn)
+    m_op[len_matrix_to_loop, len_matrix_to_loop] = math.sqrt(matrix_to_decompose[len_matrix_to_loop, len_matrix_to_loop] - summatory_tonn)
     return m_op
 
     
-chol = cholesky_decomposition(m_dada)
+chol = cholesky_decomposition(m_test)
 print(chol)
-
-#print(np.linalg.cholesky(m_dada))
